@@ -1,0 +1,21 @@
+# PyCharm
+.idea/
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 虚拟环境
+.venv/
+venv/
+
+# SQLite数据库
+bible.db
+
+# 图片上传目录
+upload_images/
+
+# 日志
+*.log
