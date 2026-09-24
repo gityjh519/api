@@ -140,33 +140,33 @@ async def get_bible(volumIndex: int, chapterIndex: int, sectionIndex: int):
 # ===================== 接口3：图片上传 =====================
 UPLOAD_FOLDER = "upload_images"
 
-
-@app.post("/api/upload/image", description="上传图片")
-async def upload_image(file: UploadFile = File(...)):
-    content_type = file.content_type
-    if not content_type or not content_type.startswith("image/"):
-        return {"code": 400, "msg": "只能上传图片"}
-
-    filename = file.filename
-    if not filename:
-        return {"code": 400, "msg": "文件名无效"}
-
-    file_bytes = await file.read()
-
-    if IS_CLOUDFLARE:
-        # ☁️ 线上分支：写入云端免费 R2 存储桶
-        from cell_runtime import env  # type: ignore
-        bucket = env.BUCKET
-        await bucket.put(filename, file_bytes)
-        return {"code": 200, "msg": "线上R2图片上传成功", "name": filename}
-    else:
-        # 💻 本地分支：直接保存到本地物理文件夹
-        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-        save_path = os.path.join(UPLOAD_FOLDER, filename)
-        with open(save_path, "wb") as f:
-            f.write(file_bytes)
-        return {"code": 200, "msg": "本地物理图片上传成功", "name": filename}
-
+#
+# @app.post("/api/upload/image", description="上传图片")
+# async def upload_image(file: UploadFile = File(...)):
+#     content_type = file.content_type
+#     if not content_type or not content_type.startswith("image/"):
+#         return {"code": 400, "msg": "只能上传图片"}
+#
+#     filename = file.filename
+#     if not filename:
+#         return {"code": 400, "msg": "文件名无效"}
+#
+#     file_bytes = await file.read()
+#
+#     if IS_CLOUDFLARE:
+#         # ☁️ 线上分支：写入云端免费 R2 存储桶
+#         from cell_runtime import env  # type: ignore
+#         bucket = env.BUCKET
+#         await bucket.put(filename, file_bytes)
+#         return {"code": 200, "msg": "线上R2图片上传成功", "name": filename}
+#     else:
+#         # 💻 本地分支：直接保存到本地物理文件夹
+#         os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+#         save_path = os.path.join(UPLOAD_FOLDER, filename)
+#         with open(save_path, "wb") as f:
+#             f.write(file_bytes)
+#         return {"code": 200, "msg": "本地物理图片上传成功", "name": filename}
+#
 
 # =========================================================================
 # 🚀 优雅出口：线上绑定云端网关，本地挂载 uvicorn 监听
