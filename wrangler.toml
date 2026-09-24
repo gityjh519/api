@@ -3,10 +3,10 @@ main = "main.py"
 compatibility_date = "2026-09-23"
 compatibility_flags = ["python_workers"]
 
-# 🚀 显式强制云端加载 FastAPI 及其异步环境的核心依赖
+# 🚀 极其关键：显式命令 Cloudflare 构建引擎在云端必须离线注入这两个第三方 Python 包
 python_requirement_packages = ["fastapi", "pydantic"]
 
 [[d1_databases]]
 binding = "DB"
 database_name = "bible-db"
-database_id = "a3c078f9-cf52-4284-8c56-9bb128295df5" # 🚀 已经精准替换为你刚才生成的 D1 实例 ID
+database_id = "a3c078f9-cf52-4284-8c56-9bb128295df5"

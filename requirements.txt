@@ -1,7 +1,2 @@
 fastapi
-uvicorn
-python-multipart
-
-workers
 pydantic
-myapplication
